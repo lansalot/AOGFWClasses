@@ -1,11 +1,13 @@
 
 // the setup function runs once when you press reset or power the board
+#include "LED.h"
 #include "Logger.h"
 #include "UbloxF9P.h"
 #include "IMU.h"
 #include "BNO08x.h"
 #include "GPS.h"
 #include "Logger.h"
+#include "LED.h"
 
 double rollDelta;
 double rollDeltaSmooth;
@@ -17,9 +19,11 @@ double imuCorrected;
 IMU* imu;
 
 Logger logger;
+LEDClass led;
 
 void setup() {
 
+	led.init();
 	logger.LoggingDestination = Logger::LogDestination::USB;
 	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS + Logger::LogAreas::IMU;
 
@@ -45,5 +49,9 @@ void loop() {
 	IMU::IMUData imuData = imu->getIMUData(false, false); // careful, protected in BNO08x class
 	// just here for testing, not of interest really
 	logger.LogMessage("Pitch: " + String(imuData.pitch),Logger::IMU);
-	delay(500);
+	led.ledOn(led.GGAReceivedLED);
+	delay(250);
+	led.ledOff(led.GGAReceivedLED);
+	delay(250);
+
 }
