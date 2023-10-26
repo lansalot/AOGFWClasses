@@ -7,7 +7,7 @@
 	#include "WProgram.h"
 #endif
 
-class Logger
+class LoggerClass
 {
  protected:
 
@@ -33,7 +33,7 @@ class Logger
 	 void LogMessage(String message, LogAreas logAreas);
 };
 
-//extern LoggerClass Logger
+extern LoggerClass Logger;
 
 
 #endif

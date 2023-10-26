@@ -13,7 +13,7 @@
 class IMU
 {
 protected:
-	Logger::LogAreas moduleLogLevel = Logger::IMU;
+	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::IMU;
 
 
 public:
@@ -33,7 +33,7 @@ public:
 		useXAxis = 1
 	};
 	boolean devicePresent;
-	virtual void initialize(Logger& logger) = 0;
+	virtual void initialize() = 0; // Logger& logger) = 0;
 	virtual IMUData getIMUData(rollState roll, imuAxisState imuAxis) = 0;
 };
 

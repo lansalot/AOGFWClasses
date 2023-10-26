@@ -13,7 +13,7 @@
 class GPS
 {
 protected:
-	Logger::LogAreas moduleLogLevel = Logger::GPS;
+	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::GPS;
 	// Conversion to Hexadecimal
 	const char* asciiHex = "0123456789ABCDEF";
 

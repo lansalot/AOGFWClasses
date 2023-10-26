@@ -1,7 +1,8 @@
 #include "Logger.h"
 
 
-void Logger::LogMessage(String message, LogAreas logArea)
+
+void LoggerClass::LogMessage(String message, LogAreas logArea)
 {
 	//Serial.println("LoggingAreaOfInterest: " + String(LoggingAreaOfInterest) + " logArea: " + String(logArea));
 	if (LoggingAreaOfInterest & logArea || logArea == LogAreas::General) {
@@ -13,3 +14,5 @@ void Logger::LogMessage(String message, LogAreas logArea)
 		}
 	}
 }
+
+LoggerClass Logger;

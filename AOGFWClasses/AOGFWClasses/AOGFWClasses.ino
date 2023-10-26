@@ -10,11 +10,12 @@
 #include "AOGEEPROM.h"
 #include "LED.h"
 #include "Logger.h"
-#include "UbloxF9P.h"
+//#include "UbloxF9P.h"
 #include "IMU.h"
 #include "BNO08x.h"
-#include "GPS.h"
+//#include "GPS.h"
 #include "zNMEAParser.h"
+
 
 double rollDelta;
 double rollDeltaSmooth;
@@ -26,29 +27,29 @@ double imuCorrected;
 IMU* imu;
 //GPS* gps;
 
-Logger logger;
+//Logger logger;
 LEDClass led;
 
 void setup() {
 
 	led.init();
-	logger.LoggingDestination = Logger::LogDestination::USB;
-	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS + Logger::LogAreas::IMU;
+	Logger.LoggingDestination = LoggerClass::LogDestination::USB;
+	Logger.LoggingAreaOfInterest = LoggerClass::LogAreas::GPS + LoggerClass::LogAreas::IMU;
 
 	//gps = new UbloxF9P;
 
 	Serial.begin(115200);
-	logger.LogMessage("Starting",Logger::LogAreas::General);
+	Logger.LogMessage("Starting",LoggerClass::LogAreas::General);
 	
 	delay(1000);
 	// normally, we'd check for CMPS14 first but let's look for BNO first instead as it's more popular
 	imu = new BNO080;
-	imu->initialize(logger);
+	imu->initialize(); // logger);
 	if (imu->devicePresent) {
-		logger.LogMessage("Found BNO!",Logger::LogAreas::General);
+		Logger.LogMessage("Found BNO!",LoggerClass::LogAreas::General);
 	}
 	else {
-		logger.LogMessage("No BNO found - will search for CMPS14 instead",Logger::LogAreas::General);
+		Logger.LogMessage("No BNO found - will search for CMPS14 instead",LoggerClass::LogAreas::General);
 		//imu = new CMPS14;
 	}
 }
@@ -57,7 +58,7 @@ void setup() {
 void loop() {
 	IMU::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
-	logger.LogMessage("Pitch: " + String(imuData.pitch),Logger::IMU);
+	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogAreas::IMU);
 	led.ledOn(led.GGAReceivedLED);
 	delay(250);
 	led.ledOff(led.GGAReceivedLED);

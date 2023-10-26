@@ -138,7 +138,7 @@ protected:
 
 public:
 
-	void initialize(Logger& logger);
+	void initialize(); // Logger& logger);
 	boolean devicePresent = false;
 	IMU::IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
 
