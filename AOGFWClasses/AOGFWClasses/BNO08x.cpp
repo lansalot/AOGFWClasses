@@ -77,7 +77,7 @@ void BNO080::initialize(Logger& logger) {
 	devicePresent = false;
 }
 
-IMU::IMUData BNO080::getIMUData(bool invertRoll, bool useYAxis) {
+IMU::IMUData BNO080::getIMUData(rollState roll, imuAxisState imuAxis) {
 	if (dataAvailable() == true)
 	{
 		float dqx, dqy, dqz, dqw, dacr;

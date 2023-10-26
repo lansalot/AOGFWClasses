@@ -1,5 +1,14 @@
 
 // the setup function runs once when you press reset or power the board
+#include "WASCANBUS.h"
+#include "WASAnalog.h"
+#include "WAS.h"
+#include "SteerCANBUS.h"
+#include "SteerCytron.h"
+#include "SteerKeya.h"
+#include "Steer.h"
+#include "AutoSteerPID.h"
+#include "EEPROM.h"
 #include "LED.h"
 #include "Logger.h"
 #include "UbloxF9P.h"
@@ -16,7 +25,7 @@ double imuGPS_Offset;
 double gpsHeading;
 double imuCorrected;
 IMU* imu;
-GPS* gps;
+//GPS* gps;
 
 Logger logger;
 LEDClass led;
@@ -27,7 +36,7 @@ void setup() {
 	logger.LoggingDestination = Logger::LogDestination::USB;
 	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS + Logger::LogAreas::IMU;
 
-	gps = new UbloxF9P;
+	//gps = new UbloxF9P;
 
 	Serial.begin(115200);
 	logger.LogMessage("Starting",Logger::LogAreas::General);
@@ -47,7 +56,7 @@ void setup() {
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-	IMU::IMUData imuData = imu->getIMUData(false, false); // careful, protected in BNO08x class
+	IMU::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
 	logger.LogMessage("Pitch: " + String(imuData.pitch),Logger::IMU);
 	led.ledOn(led.GGAReceivedLED);
@@ -55,6 +64,7 @@ void loop() {
 	led.ledOff(led.GGAReceivedLED);
 	delay(250);
 
+	SteerKeya.init(); // so that works OK...
 	// To work AOG-style, loop should
 		// check if GGA available
 		// check if ntrip available

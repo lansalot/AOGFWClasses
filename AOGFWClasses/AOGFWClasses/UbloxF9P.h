@@ -9,25 +9,17 @@
 #endif
 
 #include "GPS.h"
+#include "zNMEAParser.h"
 class UbloxF9P : public GPS
 {
  protected:
+	 static NMEAParser<2> parser;
 
  public:
-	 void initialize() override {
-		 return;
-		 // Initialization code for Model A GPS
-	 }
-
-	 float getLatitude() override  {
-		 return 0.0f;
-		 // Implementation for Model A GPS
-	 }
-
-	 float getLongitude() override {
-		 return 0.0f;
-		 // Implementation for Model A GPS
-	 }
+	 static void GGA_Handler();
+	 static void VTG_Handler();
+	 static void errorHandler();
+	 void initialize() override {};
 };
 
 

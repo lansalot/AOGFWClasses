@@ -140,7 +140,7 @@ public:
 
 	void initialize(Logger& logger);
 	boolean devicePresent = false;
-	IMU::IMUData getIMUData(bool invertRoll, bool useYAxis) override;
+	IMU::IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
 
 
 private:
