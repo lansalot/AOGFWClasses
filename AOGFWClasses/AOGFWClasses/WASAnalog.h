@@ -9,6 +9,8 @@
 	#include "WProgram.h"
 #endif
 
+#include "WAS.h"
+
 class WASAnalogClass : public WAS
 {
  protected:

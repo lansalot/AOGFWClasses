@@ -9,6 +9,8 @@
 	#include "WProgram.h"
 #endif
 
+#include "Steer.h"
+
 class SteerKeyaClass : public SteerClass
 {
  protected:

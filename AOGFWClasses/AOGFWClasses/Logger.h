@@ -33,6 +33,8 @@ class Logger
 	 void LogMessage(String message, LogAreas logAreas);
 };
 
+//extern LoggerClass Logger
+
 
 #endif
 

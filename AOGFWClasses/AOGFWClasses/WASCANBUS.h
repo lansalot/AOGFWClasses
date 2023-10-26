@@ -9,6 +9,9 @@
 	#include "WProgram.h"
 #endif
 
+#include "WAS.h"
+
+
 class WASCANBUSClass : public WAS
 {
  protected:
