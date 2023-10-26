@@ -13,6 +13,8 @@
 class IMU
 {
 protected:
+	Logger::LogAreas moduleLogLevel = Logger::IMU;
+
 
 public:
 	struct IMUData {
@@ -22,10 +24,9 @@ public:
 		double correctionHeading = 0;
 	};
 	IMUData imuData;
-	Logger::LogAreas moduleLogLevel = Logger::IMU;
 
-	virtual void initialize(Logger& logger) = 0;
 	boolean devicePresent;
+	virtual void initialize(Logger& logger) = 0;
 	virtual IMUData getIMUData(bool invertRoll, bool useYAxis) = 0;
 };
 

@@ -1,7 +1,3 @@
-// 
-// 
-// 
-
 #include "Logger.h"
 
 

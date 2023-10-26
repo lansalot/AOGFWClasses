@@ -9,10 +9,11 @@
 #include "WProgram.h"
 #endif
 
+#include "Logger.h"
 class GPS
 {
 protected:
-
+	Logger::LogAreas moduleLogLevel = Logger::GPS;
 
 public:
 	virtual void initialize() = 0;
