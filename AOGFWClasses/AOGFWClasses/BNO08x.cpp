@@ -29,8 +29,7 @@ IMU::IMUData imuData;
 
 #define RAD_TO_DEG_X_10 572.95779513082320876798154814105
 
-
-void BNO080::initialize() {
+void BNO080::initialize(Logger& logger) {
 
 	const uint8_t bno08xAddresses[] = { 0x4A, 0x4B };
 	const int8_t nrBNO08xAdresses = sizeof(bno08xAddresses) / sizeof(bno08xAddresses[0]);
@@ -41,17 +40,14 @@ void BNO080::initialize() {
 	for (int16_t i = 0; i < nrBNO08xAdresses; i++)
 	{
 		bno08xAddress = bno08xAddresses[i];
-
-		//logger.LogMessage("\r\nChecking for BNO08X on " + String(bno08xAddress, HEX),Logger::IMU);
+		logger.LogMessage("Checking for BNO08X on " + String(bno08xAddress, HEX), moduleLogLevel);
 		ImuWire.beginTransmission(bno08xAddress);
 		error = ImuWire.endTransmission();
 
 		if (error == 0)
 		{
 			//Serial.println("Error = 0");
-			Serial.print("0x");
-			Serial.print(bno08xAddress, HEX);
-			Serial.println(" BNO08X Ok.");
+			logger.LogMessage("0x" + String(bno08xAddress, HEX) + " BNO08X Ok.", moduleLogLevel);
 
 			// Initialize BNO080 lib
 			if (begin(bno08xAddress, ImuWire))
@@ -68,15 +64,13 @@ void BNO080::initialize() {
 			}
 			else
 			{
-				Serial.println("BNO080 not detected at given I2C address.");
+				logger.LogMessage("BNO080 not detected at given I2C address.",moduleLogLevel);
 			}
 		}
 		else
 		{
 			//Serial.println("Error = 4");
-			Serial.print("0x");
-			Serial.print(bno08xAddress, HEX);
-			Serial.println(" BNO08X not Connected or Found");
+			logger.LogMessage("0x" + String(bno08xAddress, HEX) + " BNO08X not Connected or Found",moduleLogLevel);
 		}
 	}
 	// well, we tried. sorry

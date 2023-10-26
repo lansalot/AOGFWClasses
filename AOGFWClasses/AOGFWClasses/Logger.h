@@ -23,7 +23,7 @@ class Logger
 		 PGN = 8,
 		 CANBUS = 16,
 		 PWM = 32,
-		 Unspecified = 128
+		 General = 128
 	 };
 	 enum LogDestination
 	 {

@@ -138,9 +138,9 @@ protected:
 
 public:
 
-	void initialize();
+	void initialize(Logger& logger);
 	boolean devicePresent = false;
-	IMU::IMUData BNO080::getIMUData(bool invertRoll, bool useYAxis) override;
+	IMU::IMUData getIMUData(bool invertRoll, bool useYAxis) override;
 
 
 private:

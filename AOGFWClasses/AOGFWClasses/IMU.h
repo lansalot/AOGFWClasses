@@ -8,6 +8,8 @@
 #include "WProgram.h"
 #endif
 
+#include "Logger.h"
+
 class IMU
 {
 protected:
@@ -20,9 +22,9 @@ public:
 		double correctionHeading = 0;
 	};
 	IMUData imuData;
+	Logger::LogAreas moduleLogLevel = Logger::IMU;
 
-
-	virtual void initialize() = 0;
+	virtual void initialize(Logger& logger) = 0;
 	boolean devicePresent;
 	virtual IMUData getIMUData(bool invertRoll, bool useYAxis) = 0;
 };

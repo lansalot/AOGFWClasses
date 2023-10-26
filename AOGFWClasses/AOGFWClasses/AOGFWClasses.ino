@@ -19,21 +19,24 @@ IMU* imu;
 Logger logger;
 
 void setup() {
+
+	logger.LoggingDestination = Logger::LogDestination::USB;
+	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS + Logger::LogAreas::IMU;
+
+
 	Serial.begin(115200);
-	Serial.println("Starting");
+	logger.LogMessage("Starting",Logger::LogAreas::General);
 	
 	delay(1000);
 	// normally, we'd check for CMPS14 first
 	imu = new BNO080;
-	imu->initialize();
+	imu->initialize(logger);
 	if (imu->devicePresent) {
-		Serial.println("Found IMU!");
+		logger.LogMessage("Found IMU!",Logger::LogAreas::General);
 	}
 	else {
-		Serial.println("No IMU Found");
+		logger.LogMessage("No IMU Found",Logger::LogAreas::General);
 	}
-	logger.LoggingDestination = Logger::LogDestination::USB;
-	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS; // +Logger::LogAreas::IMU;
 }
 
 // the loop function runs over and over again until power down or reset

@@ -7,7 +7,8 @@
 
 void Logger::LogMessage(String message, LogAreas logArea)
 {
-	if (LoggingAreaOfInterest & logArea) {
+	//Serial.println("LoggingAreaOfInterest: " + String(LoggingAreaOfInterest) + " logArea: " + String(logArea));
+	if (LoggingAreaOfInterest & logArea || logArea == LogAreas::General) {
 		if (LoggingDestination & LogDestination::USB) {
 			Serial.println(message);
 		}
