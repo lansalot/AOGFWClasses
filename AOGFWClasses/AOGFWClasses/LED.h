@@ -33,6 +33,7 @@ public:
 	void init();
 	void ledOn(LEDs led);
 	void ledOff(LEDs led);
+	void ledBlink(LEDs led, boolean State);
 
 };
 

@@ -27,3 +27,8 @@ void LEDClass::ledOff(LEDs led)
 	digitalWrite(led, LOW);
 
 }
+
+void LEDClass::ledBlink(LEDs led, boolean State)
+{
+	digitalWrite(led, State);
+}

@@ -6,8 +6,7 @@
 #include "IMU.h"
 #include "BNO08x.h"
 #include "GPS.h"
-#include "Logger.h"
-#include "LED.h"
+#include "zNMEAParser.h"
 
 double rollDelta;
 double rollDeltaSmooth;
@@ -17,6 +16,7 @@ double imuGPS_Offset;
 double gpsHeading;
 double imuCorrected;
 IMU* imu;
+GPS* gps;
 
 Logger logger;
 LEDClass led;
@@ -27,6 +27,7 @@ void setup() {
 	logger.LoggingDestination = Logger::LogDestination::USB;
 	logger.LoggingAreaOfInterest = Logger::LogAreas::GPS + Logger::LogAreas::IMU;
 
+	gps = new UbloxF9P;
 
 	Serial.begin(115200);
 	logger.LogMessage("Starting",Logger::LogAreas::General);
@@ -54,4 +55,16 @@ void loop() {
 	led.ledOff(led.GGAReceivedLED);
 	delay(250);
 
+	// To work AOG-style, loop should
+		// check if GGA available
+		// check if ntrip available
+		// check if NMEA from GPS
+		// udpNtrip?
+		// check for RTK radio
+		// if both dual messages are ready, send to AOG
+		// handle relposdata on serialgps2
+		// check for GGA timeout and turn off GPS LEDs
+		// read BNO/IMU
+		// enter autosteer loop or receive UDP
+		// update LEDs
 }
