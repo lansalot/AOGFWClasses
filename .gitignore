@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AOGFWClasses/AOGFWClasses/__vm
+/AOGFWClasses/.vs/AOGFWClasses/FileContentIndex
