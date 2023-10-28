@@ -6,7 +6,7 @@
 
 void SteerKeyaClass::init()
 {
-	Serial.println("did an init");
+	//Serial.println("did an init");
 
 }
 

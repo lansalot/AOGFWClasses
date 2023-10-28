@@ -20,6 +20,7 @@ class AOGEEPROMClass
 };
 
 
+extern AOGEEPROMClass AOGEEPROM;
 
 #endif
 

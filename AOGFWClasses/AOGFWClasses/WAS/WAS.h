@@ -1,7 +1,7 @@
-// SteerCANBUS.h
+// WAS.h
 
-#ifndef _STEERCANBUS_h
-#define _STEERCANBUS_h
+#ifndef _WAS_h
+#define _WAS_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "arduino.h"
@@ -9,15 +9,13 @@
 	#include "WProgram.h"
 #endif
 
-#include "Steer.h"
-
-class SteerCANBUS : public SteerClass
+class WASClass
 {
  protected:
 
 
  public:
-	void init();
+	virtual void init() = 0;
 };
 
 

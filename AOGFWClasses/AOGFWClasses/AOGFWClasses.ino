@@ -1,19 +1,17 @@
 
 // the setup function runs once when you press reset or power the board
-#include "WASCANBUS.h"
-#include "WASAnalog.h"
-#include "WAS.h"
-#include "SteerCANBUS.h"
-#include "SteerCytron.h"
-#include "SteerKeya.h"
-#include "Steer.h"
+#include "WAS\\WASCANBUS.h"
+#include "WAS\\WASAnalog.h"
+#include "WAS\\WAS.h"
+#include "Steer\\SteerCANBUS.h"
+#include "Steer\\SteerCytron.h"
+#include "Steer\\SteerKeya.h"
+#include "Steer\\Steer.h"
 #include "AOGEEPROM.h"
 #include "LED.h"
 #include "Logger.h"
-//#include "UbloxF9P.h"
-#include "IMU.h"
-#include "BNO08x.h"
-//#include "GPS.h"
+#include "IMU\\IMU.h"
+#include "IMU\\BNO08x.h"
 #include "zNMEAParser.h"
 
 

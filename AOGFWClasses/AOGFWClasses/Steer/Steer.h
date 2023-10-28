@@ -1,7 +1,7 @@
-// WAS.h
+// Steer.h
 
-#ifndef _WAS_h
-#define _WAS_h
+#ifndef _STEER_h
+#define _STEER_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "arduino.h"
@@ -9,10 +9,9 @@
 	#include "WProgram.h"
 #endif
 
-class WAS
+class SteerClass
 {
  protected:
-
 
  public:
 	virtual void init() = 0;

@@ -8,7 +8,7 @@
 #include "WProgram.h"
 #endif
 
-#include "Logger.h"
+#include "..\\Logger.h"
 
 class IMU
 {

@@ -85,36 +85,36 @@
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
     <ClCompile Include="AutoSteer.cpp" />
-    <ClCompile Include="BNO08x.cpp" />
+    <ClCompile Include="IMU\BNO08x.cpp" />
     <ClCompile Include="AOGEEPROM.cpp" />
-    <ClCompile Include="IMU.cpp" />
+    <ClCompile Include="IMU\IMU.cpp" />
     <ClCompile Include="LED.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="Steer.cpp" />
-    <ClCompile Include="SteerCANBUS.cpp" />
-    <ClCompile Include="SteerCytron.cpp" />
-    <ClCompile Include="SteerKeya.cpp" />
-    <ClCompile Include="WAS.cpp" />
-    <ClCompile Include="WASAnalog.cpp" />
-    <ClCompile Include="WASCANBUS.cpp" />
+    <ClCompile Include="Steer\Steer.cpp" />
+    <ClCompile Include="Steer\SteerCANBUS.cpp" />
+    <ClCompile Include="Steer\SteerCytron.cpp" />
+    <ClCompile Include="Steer\SteerKeya.cpp" />
+    <ClCompile Include="WAS\WAS.cpp" />
+    <ClCompile Include="WAS\WASAnalog.cpp" />
+    <ClCompile Include="WAS\WASCANBUS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoSteer.h" />
-    <ClInclude Include="BNO08x.h" />
+    <ClInclude Include="IMU\BNO08x.h" />
     <ClInclude Include="AOGEEPROM.h" />
-    <ClInclude Include="IMU.h" />
+    <ClInclude Include="IMU\IMU.h" />
     <ClInclude Include="LED.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Steer.h" />
-    <ClInclude Include="SteerCANBUS.h" />
-    <ClInclude Include="SteerCytron.h" />
-    <ClInclude Include="SteerKeya.h" />
-    <ClInclude Include="WAS.h" />
-    <ClInclude Include="WASAnalog.h" />
-    <ClInclude Include="WASCANBUS.h" />
+    <ClInclude Include="Steer\Steer.h" />
+    <ClInclude Include="Steer\SteerCANBUS.h" />
+    <ClInclude Include="Steer\SteerCytron.h" />
+    <ClInclude Include="Steer\SteerKeya.h" />
+    <ClInclude Include="WAS\WAS.h" />
+    <ClInclude Include="WAS\WASAnalog.h" />
+    <ClInclude Include="WAS\WASCANBUS.h" />
     <ClInclude Include="__vm\.AOGFWClasses.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>

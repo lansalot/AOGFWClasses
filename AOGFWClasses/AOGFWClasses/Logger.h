@@ -21,6 +21,7 @@ class LoggerClass
 		 PGN = 8,
 		 CANBUS = 16,
 		 PWM = 32,
+		 WAS = 64,
 		 General = 128
 	 };
 	 enum LogDestination

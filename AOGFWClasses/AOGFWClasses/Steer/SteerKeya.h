@@ -10,10 +10,13 @@
 #endif
 
 #include "Steer.h"
+#include "..\Logger.h"
+
 
 class SteerKeyaClass : public SteerClass
 {
  protected:
+	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;
 
 
  public:

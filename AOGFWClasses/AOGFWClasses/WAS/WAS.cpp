@@ -4,7 +4,7 @@
 
 #include "WAS.h"
 
-void WAS::init()
+void WASClass::init()
 {
 
 

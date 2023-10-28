@@ -10,10 +10,13 @@
 #endif
 
 #include "WAS.h"
+#include "..\Logger.h"
 
-class WASAnalogClass : public WAS
+
+class WASAnalogClass : public WASClass
 {
  protected:
+	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::WAS;
 
 
  public:

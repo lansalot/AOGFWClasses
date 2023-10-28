@@ -10,10 +10,12 @@
 #endif
 
 #include "Steer.h"
+#include "..\Logger.h"
 
 class SteerCytronClass : public SteerClass
 {
  protected:
+	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::PWM;
 
 
  public:
