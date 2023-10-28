@@ -1,5 +1,8 @@
 
 // the setup function runs once when you press reset or power the board
+
+#include "AOGStatus.h"
+#include "AOGEthernet.h"
 #include "WAS\\WASCANBUS.h"
 #include "WAS\\WASAnalog.h"
 #include "WAS\\WAS.h"
@@ -15,17 +18,10 @@
 #include "zNMEAParser.h"
 
 
-double rollDelta;
-double rollDeltaSmooth;
-double correctionHeading;
-double gyroDelta;
-double imuGPS_Offset;
-double gpsHeading;
-double imuCorrected;
+
 IMU* imu;
 //GPS* gps;
 
-//Logger logger;
 LEDClass led;
 
 void setup() {
@@ -42,7 +38,7 @@ void setup() {
 	delay(1000);
 	// normally, we'd check for CMPS14 first but let's look for BNO first instead as it's more popular
 	imu = new BNO080;
-	imu->initialize(); // logger);
+	imu->initialize();
 	if (imu->devicePresent) {
 		Logger.LogMessage("Found BNO!",LoggerClass::LogAreas::General);
 	}

@@ -1,7 +1,3 @@
-// 
-// 
-// 
-
 #include "LED.h"
 
 void LEDClass::init()

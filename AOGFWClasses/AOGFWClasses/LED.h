@@ -37,6 +37,7 @@ public:
 
 };
 
+extern LEDClass led;
 
 #endif
 
