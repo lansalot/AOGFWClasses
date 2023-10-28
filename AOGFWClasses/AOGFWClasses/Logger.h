@@ -31,7 +31,9 @@ class LoggerClass
 	 };
 	 int8_t LoggingAreaOfInterest = 0;
 	 int8_t LoggingDestination = 0;
+
 	 void LogMessage(String message, LogAreas logAreas);
+	 
 };
 
 extern LoggerClass Logger;

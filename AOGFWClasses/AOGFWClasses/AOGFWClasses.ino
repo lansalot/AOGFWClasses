@@ -18,6 +18,8 @@
 #include "zNMEAParser.h"
 
 
+extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
+
 
 IMU* imu;
 //GPS* gps;
@@ -28,7 +30,11 @@ void setup() {
 
 	led.init();
 	Logger.LoggingDestination = LoggerClass::LogDestination::USB;
-	Logger.LoggingAreaOfInterest = LoggerClass::LogAreas::GPS + LoggerClass::LogAreas::IMU;
+	Logger.LoggingAreaOfInterest = LoggerClass::LogAreas::GPS + LoggerClass::LogAreas::IMU + LoggerClass::LogAreas::General;
+
+	Logger.LogMessage("Starting Ethernet...",LoggerClass::LogAreas::General);
+	AOGStatus.Autosteer_running = true;
+	AOGEthernet.EthernetStart();
 
 	//gps = new UbloxF9P;
 

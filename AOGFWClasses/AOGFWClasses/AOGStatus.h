@@ -15,14 +15,14 @@ class AOGStatusClass
 
 
  public:
-	 static bool Autosteer_running; //Auto set off in autosteer setup
-	 static double rollDelta;
-	 static double rollDeltaSmooth;
-	 static double correctionHeading;
-	 static double gyroDelta;
-	 static double imuGPS_Offset;
-	 static double gpsHeading;
-	 static double imuCorrected;
+	 bool Autosteer_running; //Auto set off in autosteer setup
+	 double rollDelta;
+	 double rollDeltaSmooth;
+	 double correctionHeading;
+	 double gyroDelta;
+	 double imuGPS_Offset;
+	 double gpsHeading;
+	 double imuCorrected;
 	void init();
 };
 

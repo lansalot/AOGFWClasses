@@ -11,10 +11,13 @@
 
 #include <NativeEthernet.h>
 #include <NativeEthernetUdp.h>
+#include "Logger.h"
+
 
 class AOGEthernetClass
 {
 protected:
+	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::General;
 	byte Eth_myip[4] = { 0, 0, 0, 0 }; //This is now set via AgIO
 	byte mac[6] = { 0x00, 0x00, 0x56, 0x00, 0x00, 0x78 };
 
@@ -40,7 +43,7 @@ protected:
 
 public:
 	bool Ethernet_running = false; //Auto set on in ethernet setup
-	void init();
+	void EthernetStart();
 };
 
 extern AOGEthernetClass AOGEthernet;

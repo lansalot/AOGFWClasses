@@ -15,4 +15,6 @@ void LoggerClass::LogMessage(String message, LogAreas logArea)
 	}
 }
 
+
+
 LoggerClass Logger;
