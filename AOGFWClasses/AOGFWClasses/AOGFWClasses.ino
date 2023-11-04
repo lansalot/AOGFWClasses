@@ -1,6 +1,8 @@
 
 // the setup function runs once when you press reset or power the board
 
+#include "AOGCANBUS.h"
+#include "AOGSerial.h"
 #include "AOGStatus.h"
 #include "AOGEthernet.h"
 #include "WAS\\WASCANBUS.h"
@@ -29,6 +31,12 @@ LEDClass led;
 void setup() {
 
 	led.init();
+
+	delay(10);
+	Serial.begin(AOGSerialClass::baudAOG);
+	delay(10);
+	Serial.println("Start setup");
+
 	Logger.LoggingDestination = LoggerClass::LogDestination::USB;
 	Logger.LoggingAreaOfInterest = LoggerClass::LogAreas::GPS + LoggerClass::LogAreas::IMU + LoggerClass::LogAreas::General;
 

@@ -12,7 +12,7 @@
 #include "Steer.h"
 #include "..\Logger.h"
 
-class SteerCANBUS : public SteerClass
+class SteerCANBUSClass : public SteerClass
 {
  protected:
 	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;

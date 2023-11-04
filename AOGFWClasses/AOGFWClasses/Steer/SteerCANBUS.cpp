@@ -4,12 +4,12 @@
 
 #include "SteerCANBUS.h"
 
-void SteerCANBUS::init()
+void SteerCANBUSClass::init()
 {
 
 
 }
 
 
-SteerCANBUS SteerCANBUS;
+SteerCANBUSClass SteerCANBUS;
 

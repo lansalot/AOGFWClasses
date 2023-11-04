@@ -16,11 +16,19 @@
 class SteerKeyaClass : public SteerClass
 {
  protected:
+	 char beaconIdentifier[2] = { 0x80,0x99 };
+	 uint32_t KeyaBeacon = millis();
+	 
+	 int8_t KeyaCurrentSensorReading = 0;
+	 bool keyaDetected = false;
+
 	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;
 
 
  public:
+
 	void init() override;
+
 };
 
 extern SteerKeyaClass SteerKeya;
