@@ -64,6 +64,7 @@ void setup() {
 	}
 
 	gps  = new UbloxF9P;
+	gps->initialize();
 
 
 }

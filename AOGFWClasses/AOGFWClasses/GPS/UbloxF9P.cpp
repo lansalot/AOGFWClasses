@@ -22,6 +22,8 @@ void UbloxF9P::errorHandler()
 void UbloxF9P::GGA_Handler() //Rec'd GGA
 {
 
+	// do you need to move the vtg_handler into the znmeaparser perhaps??
+
 	// fix time
 	parser.getArg(0, GPSClass::fixTime);
 
