@@ -16,7 +16,7 @@
 class WASAnalogClass : public WASClass
 {
  protected:
-	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::WAS;
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::WAS;
 
 
  public:

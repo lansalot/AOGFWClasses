@@ -22,7 +22,7 @@ class SteerKeyaClass : public SteerClass
 	 int8_t KeyaCurrentSensorReading = 0;
 	 bool keyaDetected = false;
 
-	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::CANBUS;
 
 
  public:

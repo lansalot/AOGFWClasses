@@ -9,19 +9,19 @@
 #endif
 
 #include "GPS.h"
-#include "zNMEAParser.h"
-class UbloxF9P : public GPS
+#include "..\\zNMEAParser.h"
+
+class UbloxF9P : public GPSClass
 {
  protected:
-	 static NMEAParser<2> parser;
+
 
  public:
+
 	 static void GGA_Handler();
 	 static void VTG_Handler();
 	 static void errorHandler();
-	 void initialize() override {};
+	 void initialize();
 };
 
-
 #endif
-

@@ -15,7 +15,7 @@
 class SteerCytronClass : public SteerClass
 {
  protected:
-	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::PWM;
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::PWM;
 
 
  public:

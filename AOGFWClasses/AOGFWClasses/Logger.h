@@ -13,7 +13,7 @@ class LoggerClass
 
 
  public:
-	 enum LogAreas
+	 enum LogCategories
 	 {
 		 Basic = 1,
 		 GPS = 2,
@@ -29,10 +29,10 @@ class LoggerClass
 		 USB = 1,
 		 UDP = 2
 	 };
-	 int8_t LoggingAreaOfInterest = 0;
+	 int8_t LoggingInterest = 0;
 	 int8_t LoggingDestination = 0;
 
-	 void LogMessage(String message, LogAreas logAreas);
+	 void LogMessage(String message, LogCategories logCategories);
 	 
 };
 

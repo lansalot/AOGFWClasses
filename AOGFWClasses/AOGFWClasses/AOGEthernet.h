@@ -17,7 +17,7 @@
 class AOGEthernetClass
 {
 protected:
-	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::General;
+	LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::General;
 	byte Eth_myip[4] = { 0, 0, 0, 0 }; //This is now set via AgIO
 	byte mac[6] = { 0x00, 0x00, 0x56, 0x00, 0x00, 0x78 };
 

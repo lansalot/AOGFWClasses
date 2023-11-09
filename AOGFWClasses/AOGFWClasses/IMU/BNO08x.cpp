@@ -25,7 +25,7 @@
 #include "BNO08x.h"
 #define ImuWire Wire        //SCL=19:A5 SDA=18:A4
 #define REPORT_INTERVAL 20    //BNO report time, we want to keep reading it quick & offen. Its not timmed to anything just give constant data.
-IMU::IMUData imuData;
+IMUClass::IMUData imuData;
 
 #define RAD_TO_DEG_X_10 572.95779513082320876798154814105
 
@@ -77,7 +77,7 @@ void BNO080::initialize() {
 	devicePresent = false;
 }
 
-IMU::IMUData BNO080::getIMUData(rollState roll, imuAxisState imuAxis) {
+IMUClass::IMUData BNO080::getIMUData(rollState roll, imuAxisState imuAxis) {
 	if (dataAvailable() == true)
 	{
 		float dqx, dqy, dqz, dqw, dacr;

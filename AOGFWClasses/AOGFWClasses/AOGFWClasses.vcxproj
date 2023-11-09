@@ -89,6 +89,8 @@
     <ClCompile Include="AOGStatus.cpp" />
     <ClCompile Include="AutoSteer.cpp" />
     <ClCompile Include="AOGEthernet.cpp" />
+    <ClCompile Include="GPS\GPS.cpp" />
+    <ClCompile Include="GPS\UbloxF9P.cpp" />
     <ClCompile Include="IMU\BNO08x.cpp" />
     <ClCompile Include="AOGEEPROM.cpp" />
     <ClCompile Include="IMU\IMU.cpp" />
@@ -111,6 +113,8 @@
     <ClInclude Include="AOGStatus.h" />
     <ClInclude Include="AutoSteer.h" />
     <ClInclude Include="AOGEthernet.h" />
+    <ClInclude Include="GPS\GPS.h" />
+    <ClInclude Include="GPS\UbloxF9P.h" />
     <ClInclude Include="IMU\BNO08x.h" />
     <ClInclude Include="AOGEEPROM.h" />
     <ClInclude Include="IMU\IMU.h" />

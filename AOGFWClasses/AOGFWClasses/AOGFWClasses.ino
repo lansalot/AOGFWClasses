@@ -17,14 +17,16 @@
 #include "Logger.h"
 #include "IMU\\IMU.h"
 #include "IMU\\BNO08x.h"
-#include "zNMEAParser.h"
+//#include "zNMEAParser.h"
+#include "GPS\\GPS.h"
+#include "GPS\\UbloxF9P.h"
 
 
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
 
 
-IMU* imu;
-//GPS* gps;
+IMUClass* imu;
+GPSClass* gps;
 
 LEDClass led;
 
@@ -38,35 +40,39 @@ void setup() {
 	Serial.println("Start setup");
 
 	Logger.LoggingDestination = LoggerClass::LogDestination::USB;
-	Logger.LoggingAreaOfInterest = LoggerClass::LogAreas::GPS + LoggerClass::LogAreas::IMU + LoggerClass::LogAreas::General;
+	Logger.LoggingInterest = LoggerClass::LogCategories::GPS + LoggerClass::LogCategories::IMU + LoggerClass::LogCategories::General;
 
-	Logger.LogMessage("Starting Ethernet...",LoggerClass::LogAreas::General);
+	Logger.LogMessage("Starting Ethernet...",LoggerClass::LogCategories::General);
 	AOGStatus.Autosteer_running = true;
 	AOGEthernet.EthernetStart();
 
 	//gps = new UbloxF9P;
 
 	Serial.begin(115200);
-	Logger.LogMessage("Starting",LoggerClass::LogAreas::General);
+	Logger.LogMessage("Starting",LoggerClass::LogCategories::General);
 	
 	delay(1000);
 	// normally, we'd check for CMPS14 first but let's look for BNO first instead as it's more popular
 	imu = new BNO080;
 	imu->initialize();
 	if (imu->devicePresent) {
-		Logger.LogMessage("Found BNO!",LoggerClass::LogAreas::General);
+		Logger.LogMessage("Found BNO!",LoggerClass::LogCategories::General);
 	}
 	else {
-		Logger.LogMessage("No BNO found - will search for CMPS14 instead",LoggerClass::LogAreas::General);
+		Logger.LogMessage("No BNO found - will search for CMPS14 instead",LoggerClass::LogCategories::General);
 		//imu = new CMPS14;
 	}
+
+	gps  = new UbloxF9P;
+
+
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-	IMU::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
+	IMUClass::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
-	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogAreas::IMU);
+	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
 	led.ledOn(led.GGAReceivedLED);
 	delay(250);
 	led.ledOff(led.GGAReceivedLED);
@@ -85,4 +91,5 @@ void loop() {
 		// read BNO/IMU
 		// enter autosteer loop or receive UDP
 		// update LEDs
+		// consider abstract CRC class, for AOG, $manufacturers etc
 }

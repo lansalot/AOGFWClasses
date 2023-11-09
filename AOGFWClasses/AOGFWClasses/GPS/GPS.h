@@ -9,11 +9,14 @@
 #include "WProgram.h"
 #endif
 
-#include "Logger.h"
-class GPS
+#include "..\\Logger.h"
+
+
+class GPSClass
 {
 protected:
-	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::GPS;
+	LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::GPS;
+
 	// Conversion to Hexadecimal
 	const char* asciiHex = "0123456789ABCDEF";
 
@@ -52,11 +55,10 @@ protected:
 public:
 	virtual void initialize() = 0;
 
-	static void GGA_Handler();
-	static void VTG_Handler();
-	static void errorHandler();
+
 	uint32_t gpsReadyTime = 0;        //Used for GGA timeout
 
 };
+
 
 #endif

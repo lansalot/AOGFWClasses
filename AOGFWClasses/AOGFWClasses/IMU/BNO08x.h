@@ -131,16 +131,16 @@ const byte CHANNEL_GYRO = 5;
 #define MAX_PACKET_SIZE 128 //Packets can be up to 32k but we don't have that much RAM.
 #define MAX_METADATA_SIZE 9 //This is in words. There can be many but we mostly only care about the first 9 (Qs, range, etc)
 
-class BNO080 : public IMU
+class BNO080 : public IMUClass
 {
 
 protected:
 
 public:
 
-	void initialize(); // Logger& logger);
+	void initialize();
 	boolean devicePresent = false;
-	IMU::IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
+	IMUClass::IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
 
 
 private:

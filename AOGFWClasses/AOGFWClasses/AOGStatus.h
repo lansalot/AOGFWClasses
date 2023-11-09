@@ -23,6 +23,14 @@ class AOGStatusClass
 	 double imuGPS_Offset;
 	 double gpsHeading;
 	 double imuCorrected;
+
+	 //Steer switch button  ***********************************************************************************************************
+	 uint8_t currentState = 1, reading, previous = 0;
+	 uint8_t pulseCount = 0; // Steering Wheel Encoder
+	 bool encEnable = false; //debounce flag
+	 uint8_t thisEnc = 0, lastEnc = 0;
+
+
 	void init();
 };
 

@@ -10,10 +10,10 @@
 
 #include "..\\Logger.h"
 
-class IMU
+class IMUClass
 {
 protected:
-	LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::IMU;
+	LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::IMU;
 
 
 public:
@@ -33,7 +33,7 @@ public:
 		useXAxis = 1
 	};
 	boolean devicePresent;
-	virtual void initialize() = 0; // Logger& logger) = 0;
+	virtual void initialize() = 0;
 	virtual IMUData getIMUData(rollState roll, imuAxisState imuAxis) = 0;
 };
 

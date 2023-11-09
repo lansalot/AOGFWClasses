@@ -15,7 +15,7 @@
 class SteerCANBUSClass : public SteerClass
 {
  protected:
-	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::CANBUS;
 
 
  public:

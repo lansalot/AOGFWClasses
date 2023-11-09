@@ -3,17 +3,17 @@
 // 
 
 #include "UbloxF9P.h"
-#include "LED.h"
 
-LEDClass led;
-
+static NMEAParser<2> parser;
 void UbloxF9P::initialize() {
 
-	parser.setErrorHandler(errorHandler);
-	parser.addHandler("G-GGA", GGA_Handler);
-	parser.addHandler("G-VTG", VTG_Handler);
 
+	parser.setErrorHandler(errorHandler);
+//	parser.addHandler("G-GGA", GGA_Handler);
+	parser.addHandler("G-VTG", VTG_Handler);
 }
+
+
 void UbloxF9P::errorHandler()
 {
 	//nothing at the moment
@@ -21,31 +21,35 @@ void UbloxF9P::errorHandler()
 
 void UbloxF9P::GGA_Handler() //Rec'd GGA
 {
+
 	// fix time
-	parser.getArg(0, fixTime);
+	parser.getArg(0, GPSClass::fixTime);
 
 	// latitude
-	parser.getArg(1, latitude);
-	parser.getArg(2, latNS);
+	parser.getArg(1, GPSClass::latitude);
+	parser.getArg(2, GPSClass::latNS);
 
 	// longitude
-	parser.getArg(3, longitude);
-	parser.getArg(4, lonEW);
+	parser.getArg(3, GPSClass::longitude);
+	parser.getArg(4, GPSClass::lonEW);
 
 	// fix quality
-	parser.getArg(5, fixQuality);
+	parser.getArg(5, GPSClass::fixQuality);
 
 	// satellite #
-	parser.getArg(6, numSats);
+	parser.getArg(6, GPSClass::numSats);
 
 	// HDOP
-	parser.getArg(7, HDOP);
+	parser.getArg(7, GPSClass::HDOP);
 
 	// altitude
-	parser.getArg(8, altitude);
+	parser.getArg(8, GPSClass::altitude);
 
 	// time of last DGPS update
-	parser.getArg(12, ageDGPS);
+	parser.getArg(12, GPSClass::ageDGPS);
+#ifdef CANCOMPILE
+
+
 
 	if (blink)
 	{
@@ -55,7 +59,6 @@ void UbloxF9P::GGA_Handler() //Rec'd GGA
 	{
 		digitalWrite(LEDClass::GGAReceivedLED, LOW);
 	}
-
 	blink = !blink;
 	GGA_Available = true;
 
@@ -84,18 +87,19 @@ void UbloxF9P::GGA_Handler() //Rec'd GGA
 	}
 
 	gpsReadyTime = systick_millis_count;    //Used for GGA timeout (LED's ETC) 
+#endif
 }
-
-
 
 void UbloxF9P::VTG_Handler()
 {
+#ifdef CANCOMPILE
+
 	// vtg heading
 	parser.getArg(0, vtgHeading);
 
 	// vtg Speed knots
 	parser.getArg(4, speedKnots);
-
+#endif
 
 }
 

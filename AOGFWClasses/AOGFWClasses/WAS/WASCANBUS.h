@@ -15,7 +15,7 @@
 class WASCANBUSClass : public WASClass
 {
  protected:
-	 LoggerClass::LogAreas moduleLogLevel = LoggerClass::LogAreas::CANBUS;
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::CANBUS;
 
 
 	 // there's something to watch here - FIFOfilters will need to be set on the same bus for WAS and steer
