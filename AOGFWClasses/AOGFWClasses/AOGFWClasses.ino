@@ -65,6 +65,7 @@ void setup() {
 
 	gps  = new UbloxF9P;
 	gps->initialize();
+	SteerKeya.init(); // so that works OK...
 
 
 }
@@ -79,7 +80,6 @@ void loop() {
 	led.ledOff(led.GGAReceivedLED);
 	delay(250);
 
-	SteerKeya.init(); // so that works OK...
 	// To work AOG-style, loop should
 		// check if GGA available
 		// check if ntrip available

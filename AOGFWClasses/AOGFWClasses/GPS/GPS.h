@@ -36,8 +36,9 @@ protected:
 	static char ageDGPS[10];
 
 	// VTG
-	static constexpr char vtgHeading[12] = { };
-	static constexpr char speedKnots[10] = { };
+	// trying in znmeaparser instead
+	//static char vtgHeading[12]; // = { };
+	//static char speedKnots[10]; // = { };
 
 	// IMU
 	static char imuHeading[6];

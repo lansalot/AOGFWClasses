@@ -11,17 +11,18 @@
 #include "GPS.h"
 #include "..\\zNMEAParser.h"
 
+
 class UbloxF9P : public GPSClass
 {
  protected:
 
 
  public:
-
 	 static void GGA_Handler();
 	 static void VTG_Handler();
 	 static void errorHandler();
 	 void initialize();
+
 };
 
 #endif

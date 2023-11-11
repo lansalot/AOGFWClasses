@@ -4,22 +4,45 @@
 
 #include "UbloxF9P.h"
 
+
+// 
+// parser << SerialGPS->read();  << is overloaded, it feeds the parser
+
 static NMEAParser<2> parser;
+static char vtgHeading[12];
+static char speedKnots[10];
+
+
 void UbloxF9P::initialize() {
 
 
+	// merge zhandlers and znmeaParser
+	// no, better to build a generic handler for znmeaparser
+	// and just stuff it with data from $GPS?
+
 	parser.setErrorHandler(errorHandler);
-//	parser.addHandler("G-GGA", GGA_Handler);
+	//parser.addHandler("G-GGA", GGA_Handler);
 	parser.addHandler("G-VTG", VTG_Handler);
 }
 
+void UbloxF9P::VTG_Handler()
+{
+
+	// vtg heading
+	parser.getArg(0, vtgHeading);
+
+	// vtg Speed knots
+	parser.getArg(4, speedKnots);
+
+}
 
 void UbloxF9P::errorHandler()
 {
 	//nothing at the moment
 }
 
-void UbloxF9P::GGA_Handler() //Rec'd GGA
+void UbloxF9P::GGA_Handler()
+ //Rec'd GGA
 {
 
 	// do you need to move the vtg_handler into the znmeaparser perhaps??
@@ -92,18 +115,6 @@ void UbloxF9P::GGA_Handler() //Rec'd GGA
 #endif
 }
 
-void UbloxF9P::VTG_Handler()
-{
-#ifdef CANCOMPILE
-
-	// vtg heading
-	parser.getArg(0, vtgHeading);
-
-	// vtg Speed knots
-	parser.getArg(4, speedKnots);
-#endif
-
-}
 
 
 

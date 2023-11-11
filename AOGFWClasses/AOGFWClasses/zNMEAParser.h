@@ -4,6 +4,8 @@
    Simple and compact NMEA parser designed for Arduino
 
    Author : Glinnes Hulden
+   https://github.com/Glinnes/NMEAParser
+
 
    This work is distributed under license CC0.
    Check https://creativecommons.org/publicdomain/zero/1.0/deed.en
@@ -34,6 +36,7 @@
 #define __NMEAParser_h__
 
 #include <Arduino.h>
+
 
 namespace NMEA {
     /*
@@ -72,6 +75,7 @@ public:
     static const uint8_t kSentenceMaxSize = 90;
 
 private:
+
     /*
        buffer to store the NMEA sentence excluding starting '$', the ','
        separator, the '*', the CRC and the <cr><lf>. The tail of the buffer
@@ -531,6 +535,9 @@ public:
         else return false;
     }
 
+
+
+
 #ifdef ARDUINO
     bool getArg(uint8_t num, String& arg)
     {
@@ -627,6 +634,8 @@ public:
     {
         mHandleCRC = inHandleCRC;
     }
+
+
 #ifdef __amd64__
     void printBuffer()
     {
