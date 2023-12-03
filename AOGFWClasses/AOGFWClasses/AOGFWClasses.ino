@@ -22,6 +22,7 @@
 #include "GPS\\UbloxF9P.h"
 
 
+
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
 
 
@@ -35,9 +36,9 @@ void setup() {
 	led.init();
 
 	delay(10);
-	Serial.begin(AOGSerialClass::baudAOG);
+	Serial.begin(AOGSerialClass::baudAOG); // talk to the world !
 	delay(10);
-	Serial.println("Start setup");
+	Logger.LogMessage("Initialising logging...", LoggerClass::LogCategories::General);
 
 	Logger.LoggingDestination = LoggerClass::LogDestination::USB;
 	Logger.LoggingInterest = LoggerClass::LogCategories::GPS + LoggerClass::LogCategories::IMU + LoggerClass::LogCategories::General;
@@ -46,10 +47,10 @@ void setup() {
 	AOGStatus.Autosteer_running = true;
 	AOGEthernet.EthernetStart();
 
-	//gps = new UbloxF9P;
+	AOGSerial.init();
 
-	Serial.begin(115200);
-	Logger.LogMessage("Starting",LoggerClass::LogCategories::General);
+	Logger.LogMessage("SerialAOG, SerialRTK, SerialGPS and SerialGPS2 initialized",LoggerClass::LogCategories::General);
+	Logger.LogMessage("Looking for IMU",LoggerClass::LogCategories::General);
 	
 	delay(1000);
 	// normally, we'd check for CMPS14 first but let's look for BNO first instead as it's more popular
@@ -63,15 +64,30 @@ void setup() {
 		//imu = new CMPS14;
 	}
 
+	Logger.LogMessage("Looking for GPS", LoggerClass::LogCategories::General);
 	gps  = new UbloxF9P;
 	gps->initialize();
 	SteerKeya.init(); // so that works OK...
+	// here, we would be initialising CANBUS
 
 
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
+
+	// a CANBUS receive here perhaps to kick the loop off?
+
+	if (gps->GGA_Available == false && !gps->passThroughGPS && !gps->passThroughGPS2)
+	{
+		if (systick_millis_count - AOGSerial.PortSwapTime >= 10000)
+		{
+			Serial.println("Swapping GPS ports...\r\n");
+			AOGSerial.swapSerial();
+			AOGSerial.PortSwapTime = systick_millis_count;
+		}
+	}
+
 	IMUClass::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
 	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);

@@ -48,12 +48,16 @@ protected:
 
 	boolean blink = false;
 
+
+public:
 	boolean GGA_Available = false;
 	bool useDual = false;
 	bool dualReadyGGA = false;
 	bool dualReadyRelPos = false;
 
-public:
+	bool passThroughGPS = false;
+	bool passThroughGPS2 = false;
+
 	virtual void initialize() = 0;
 
 
