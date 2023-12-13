@@ -3,9 +3,10 @@
 // 
 
 #include "UbloxF9P.h"
+#include "GPS.h"
+#include "..\\LED.h"
 
 
-// 
 // parser << SerialGPS->read();  << is overloaded, it feeds the parser
 
 static NMEAParser<2> parser;
@@ -14,8 +15,7 @@ static char speedKnots[10];
 
 
 void UbloxF9P::initialize() {
-
-
+	GPSClass::initialize();
 	// merge zhandlers and znmeaParser
 	// no, better to build a generic handler for znmeaparser
 	// and just stuff it with data from $GPS?
@@ -23,6 +23,7 @@ void UbloxF9P::initialize() {
 	parser.setErrorHandler(errorHandler);
 	//parser.addHandler("G-GGA", GGA_Handler);
 	parser.addHandler("G-VTG", VTG_Handler);
+	Logger.LogMessage("F9P initialized", moduleLogLevel);
 }
 
 void UbloxF9P::VTG_Handler()
@@ -39,6 +40,21 @@ void UbloxF9P::VTG_Handler()
 void UbloxF9P::errorHandler()
 {
 	//nothing at the moment
+}
+
+void UbloxF9P::ReadSerialPosition()
+{
+	if (SerialGPS->available())
+	{
+		if (GPSClass::passThroughGPS)
+		{
+			SerialAOG.write(SerialGPS->read());
+		}
+		else
+		{
+			parser << SerialGPS->read();
+		}
+	}
 }
 
 void UbloxF9P::GGA_Handler()
@@ -72,10 +88,7 @@ void UbloxF9P::GGA_Handler()
 
 	// time of last DGPS update
 	parser.getArg(12, GPSClass::ageDGPS);
-#ifdef CANCOMPILE
-
-
-
+#ifndef CANCOMPILE
 	if (blink)
 	{
 		digitalWrite(LEDClass::GGAReceivedLED, HIGH);
@@ -85,7 +98,7 @@ void UbloxF9P::GGA_Handler()
 		digitalWrite(LEDClass::GGAReceivedLED, LOW);
 	}
 	blink = !blink;
-	GGA_Available = true;
+	GPSClass::GGA_Available = true;
 
 	if (useDual)
 	{
@@ -111,7 +124,7 @@ void UbloxF9P::GGA_Handler()
 		//BuildNmea();
 	}
 
-	gpsReadyTime = systick_millis_count;    //Used for GGA timeout (LED's ETC) 
+	GPSClass::gpsReadyTime = systick_millis_count;    //Used for GGA timeout (LED's ETC) 
 #endif
 }
 

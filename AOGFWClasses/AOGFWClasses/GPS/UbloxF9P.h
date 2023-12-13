@@ -15,12 +15,18 @@
 class UbloxF9P : public GPSClass
 {
  protected:
+	 LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::GPS;
 
 
  public:
+
+
+
 	 static void GGA_Handler();
 	 static void VTG_Handler();
 	 static void errorHandler();
+	 static void ReadSerialPosition();
+	 static int PortSwapTime;
 	 void initialize();
 
 };

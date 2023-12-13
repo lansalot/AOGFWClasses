@@ -1,6 +1,10 @@
 #include "AOGEthernet.h"
 #include "AOGStatus.h"
 
+String formatIPAddress(const IPAddress& ip) {
+	return String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
+}
+
 void AOGEthernetClass::EthernetStart()
 {
 	// start the Ethernet connection:
@@ -34,9 +38,8 @@ void AOGEthernetClass::EthernetStart()
 	{
 		Eth_myip[3] = 120;  //120 is GPS only module
 	}
-
 	Ethernet.setLocalIP(Eth_myip);  // Change IP address to IP set by user
-	Logger.LogMessage("Ethernet status OK - IP set Manually: " + String(Ethernet.localIP()),moduleLogLevel);
+	Logger.LogMessage("Ethernet status OK - IP set Manually on subnet: " + formatIPAddress(Ethernet.localIP()), moduleLogLevel);
 
 	Ethernet_running = true;
 
@@ -45,9 +48,10 @@ void AOGEthernetClass::EthernetStart()
 	Eth_ipDestination[2] = Eth_myip[2];
 	Eth_ipDestination[3] = 255;
 
+
 	// Sort this out... byte array to string
-	Logger.LogMessage("Ethernet IP of module: " + String(Ethernet.localIP()), moduleLogLevel);
-	Logger.LogMessage("Ethernet sending to IP: " + String(Eth_ipDestination),moduleLogLevel);
+	Logger.LogMessage("Ethernet IP of module: " + formatIPAddress(Eth_ipDestination), moduleLogLevel);
+	Logger.LogMessage("Ethernet sending to IP: " + formatIPAddress(Eth_ipDestination),moduleLogLevel);
 	Logger.LogMessage("All data sending to port: " + String(portDestination),moduleLogLevel);
 
 	// init UPD Port sending to AOG

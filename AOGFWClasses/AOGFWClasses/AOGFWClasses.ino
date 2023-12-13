@@ -17,7 +17,6 @@
 #include "Logger.h"
 #include "IMU\\IMU.h"
 #include "IMU\\BNO08x.h"
-//#include "zNMEAParser.h"
 #include "GPS\\GPS.h"
 #include "GPS\\UbloxF9P.h"
 
@@ -36,7 +35,7 @@ void setup() {
 	led.init();
 
 	delay(10);
-	Serial.begin(AOGSerialClass::baudAOG); // talk to the world !
+	Serial.begin(GPSClass::baudAOG); // talk to the world !
 	delay(10);
 	Logger.LogMessage("Initialising logging...", LoggerClass::LogCategories::General);
 
@@ -64,12 +63,11 @@ void setup() {
 		//imu = new CMPS14;
 	}
 
-	Logger.LogMessage("Looking for GPS", LoggerClass::LogCategories::General);
 	gps  = new UbloxF9P;
-	gps->initialize();
+	//gps->initialize();
+
 	SteerKeya.init(); // so that works OK...
 	// here, we would be initialising CANBUS
-
 
 }
 
@@ -78,23 +76,13 @@ void loop() {
 
 	// a CANBUS receive here perhaps to kick the loop off?
 
-	if (gps->GGA_Available == false && !gps->passThroughGPS && !gps->passThroughGPS2)
-	{
-		if (systick_millis_count - AOGSerial.PortSwapTime >= 10000)
-		{
-			Serial.println("Swapping GPS ports...\r\n");
-			AOGSerial.swapSerial();
-			AOGSerial.PortSwapTime = systick_millis_count;
-		}
-	}
-
 	IMUClass::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
 	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
 	led.ledOn(led.GGAReceivedLED);
-	delay(250);
+	delay(500);
 	led.ledOff(led.GGAReceivedLED);
-	delay(250);
+	delay(500);
 
 	// To work AOG-style, loop should
 		// check if GGA available
