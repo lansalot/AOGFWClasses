@@ -4,51 +4,51 @@
 
 #include "GPS.h"
 
-HardwareSerial* GPSClass::SerialGPS = &Serial7; //Main postion receiver (GGA) (Serial2 must be used here with T4.0 / Basic Panda boards - Should auto swap)
-HardwareSerial* GPSClass::SerialGPS2 = &Serial2; //Dual heading receiver 
+HardwareSerial* SerialGPS = &Serial7; //Main postion receiver (GGA) (Serial2 must be used here with T4.0 / Basic Panda boards - Should auto swap)
+HardwareSerial* SerialGPS2 = &Serial2; //Dual heading receiver 
 
-bool GPSClass::blink = false;
-bool GPSClass::passThroughGPS = false;
-bool GPSClass::passThroughGPS2 = false;
-bool GPSClass::GGA_Available = false;
-bool GPSClass::useDual = false;
-bool GPSClass::dualReadyGGA = false;
-bool GPSClass::dualReadyRelPos = false;
+bool blink = false;
+bool passThroughGPS = false;
+bool passThroughGPS2 = false;
+bool GGA_Available = false;
+bool useDual = false;
+bool dualReadyGGA = false;
+bool dualReadyRelPos = false;
 
-uint8_t GPSClass::GPSrxbuffer[512];
-uint8_t GPSClass::GPStxbuffer[512];
-uint8_t GPSClass::GPS2rxbuffer[512];
-uint8_t GPSClass::GPS2txbuffer[512];
-uint8_t GPSClass::RTKrxbuffer[512];
-uint32_t GPSClass::gpsReadyTime = 0;
-uint32_t GPSClass::PortSwapTime = 0;
+uint8_t GPSrxbuffer[512];
+uint8_t GPStxbuffer[512];
+uint8_t GPS2rxbuffer[512];
+uint8_t GPS2txbuffer[512];
+uint8_t RTKrxbuffer[512];
+uint32_t gpsReadyTime = 0;
+uint32_t PortSwapTime = 0;
 
 
 void GPSClass::initialize()
 {
 
-	GPSClass::SerialGPS->addMemoryForRead(GPSClass::GPSrxbuffer, GPSClass::serial_buffer_size);
-	GPSClass::SerialGPS->addMemoryForWrite(GPSClass::GPStxbuffer, GPSClass::serial_buffer_size);
+	SerialGPS->addMemoryForRead(GPSrxbuffer, serial_buffer_size);
+	SerialGPS->addMemoryForWrite(GPStxbuffer, serial_buffer_size);
 
 	delay(10);
-	SerialRTK.begin(GPSClass::baudRTK);
-	SerialRTK.addMemoryForRead(GPSClass::RTKrxbuffer, GPSClass::serial_buffer_size);
+	SerialRTK.begin(baudRTK);
+	SerialRTK.addMemoryForRead(RTKrxbuffer, serial_buffer_size);
 
 	delay(10);
-	GPSClass::SerialGPS2->begin(GPSClass::baudGPS);
-	GPSClass::SerialGPS2->addMemoryForRead(GPSClass::GPS2rxbuffer, GPSClass::serial_buffer_size);
-	GPSClass::SerialGPS2->addMemoryForWrite(GPSClass::GPS2txbuffer, GPSClass::serial_buffer_size);
+	SerialGPS2->begin(baudGPS);
+	SerialGPS2->addMemoryForRead(GPS2rxbuffer, serial_buffer_size);
+	SerialGPS2->addMemoryForWrite(GPS2txbuffer, serial_buffer_size);
 
 	Logger.LogMessage("Looking for GPS...", LoggerClass::LogCategories::GPS);
 
 	// stall until GPS is receiving
-	while (GPSClass::GGA_Available == false && !GPSClass::passThroughGPS && !GPSClass::passThroughGPS2)
+	while (GGA_Available == false && !passThroughGPS && !passThroughGPS2)
 	{
-		if (systick_millis_count - GPSClass::PortSwapTime >= 10000)
+		if (systick_millis_count - PortSwapTime >= 10000)
 		{
 			Logger.LogMessage("Swapping GPS ports...", LoggerClass::LogCategories::GPS);
-			GPSClass::swapSerial();
-			GPSClass::PortSwapTime = systick_millis_count;
+			swapSerial();
+			PortSwapTime = systick_millis_count;
 		}
 		delay(500);
 	}
