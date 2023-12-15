@@ -12,30 +12,23 @@
 class AOGSerialClass
 {
 protected:
-	// Baudrates for detecting UBX receiver
-	uint32_t baudrates[9] =
-	{
-	  4800,
-	  9600,
-	  19200,
-	  38400,
-	  57600,
-	  115200,
-	  230400,
-	  460800,
-	  921600
-	};
 
-	const uint32_t nrBaudrates = sizeof(baudrates) / sizeof(baudrates[0]);
 
 
 public:
+	// Baudrates for detecting UBX receiver
+	static uint32_t baudrates[9];
 
+	static const uint32_t nrBaudrates;
+	// Buffer to read chars from Serial, to check if "!AOG" is found
+	static uint8_t aogSerialCmd[4];
+	static uint8_t aogSerialCmdBuffer[6];
+	static uint8_t aogSerialCmdCounter;
 
-	void init();
+	static void init();
 };
 
-extern AOGSerialClass AOGSerial;
 
+extern AOGSerialClass AOGSerial;
 #endif
 

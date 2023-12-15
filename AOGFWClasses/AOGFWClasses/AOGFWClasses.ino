@@ -19,7 +19,7 @@
 #include "IMU\\BNO08x.h"
 #include "GPS\\GPS.h"
 #include "GPS\\UbloxF9P.h"
-
+#include "AOGSerial.h"
 
 
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
@@ -27,7 +27,6 @@ extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
 
 IMUClass* imu;
 GPSClass* gps;
-
 LEDClass led;
 
 void setup() {
@@ -46,7 +45,7 @@ void setup() {
 	AOGStatus.Autosteer_running = true;
 	AOGEthernet.EthernetStart();
 
-	AOGSerial.init();
+	AOGSerialClass::init();
 
 	Logger.LogMessage("SerialAOG, SerialRTK, SerialGPS and SerialGPS2 initialized",LoggerClass::LogCategories::General);
 	Logger.LogMessage("Looking for IMU",LoggerClass::LogCategories::General);
@@ -83,6 +82,10 @@ void loop() {
 	delay(500);
 	led.ledOff(led.GGAReceivedLED);
 	delay(500);
+
+	// incoming RTK
+	gps->parseRTK();
+
 
 	// To work AOG-style, loop should
 		// check if GGA available

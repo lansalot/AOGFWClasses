@@ -35,11 +35,6 @@ protected:
 	static char altitude[12];
 	static char ageDGPS[10];
 
-	// VTG
-	// trying in znmeaparser instead
-	//static char vtgHeading[12]; // = { };
-	//static char speedKnots[10]; // = { };
-
 	// IMU
 	static char imuHeading[6];
 	static char imuRoll[6];
@@ -51,6 +46,21 @@ protected:
 public:
 #define SerialAOG Serial                //AgIO USB conection - I say we don't implement this?
 #define SerialRTK Serial3               //RTK radio
+
+	struct ubxPacket
+	{
+		uint8_t cls;
+		uint8_t id;
+		uint16_t len; //Length of the payload. Does not include cls, id, or checksum bytes
+		uint16_t counter; //Keeps track of number of overall bytes received. Some responses are larger than 255 bytes.
+		uint16_t startingSpot; //The counter value needed to go past before we begin recording into payload array
+		uint8_t* payload; // We will allocate RAM for the payload if/when needed.
+		uint8_t checksumA; //Given to us from module. Checked against the rolling calculated A/B checksums.
+		uint8_t checksumB;
+
+		////sfe_ublox_packet_validity_e valid;			 //Goes from NOT_DEFINED to VALID or NOT_VALID when checksum is checked
+		////sfe_ublox_packet_validity_e classAndIDmatch; // Goes from NOT_DEFINED to VALID or NOT_VALID when the Class and ID match the requestedClass and requestedID
+	};
 
 	static bool blink;
 	static const int32_t baudAOG = 115200;
@@ -77,13 +87,15 @@ public:
 
 	static bool passThroughGPS;
 	static bool passThroughGPS2;
+	static uint32_t gpsReadyTime;        //Used for GGA timeout
 
 	// should probably have a constructor that initilisess stuff instead of relying on this
+
 	void initialize();
 	static void swapSerial();
+	static void calcChecksum(ubxPacket* msg);
+	static void parseRTK() ;
 
-
-	static uint32_t gpsReadyTime;        //Used for GGA timeout
 
 };
 
