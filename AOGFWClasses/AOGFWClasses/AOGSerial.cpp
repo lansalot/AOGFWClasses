@@ -8,7 +8,7 @@
 uint8_t AOGSerialClass::aogSerialCmd[4] = { '!', 'A', 'O', 'G' };
 uint8_t AOGSerialClass::aogSerialCmdBuffer[6];
 uint8_t AOGSerialClass::aogSerialCmdCounter = 0;
-uint32_t baudrates[9]
+uint32_t AOGSerialClass::baudrates[9]
 {
   4800,
   9600,
@@ -20,7 +20,7 @@ uint32_t baudrates[9]
   460800,
   921600
 };
-uint32_t nrBaudrates = sizeof(baudrates) / sizeof(baudrates[0]);
+uint32_t AOGSerialClass::nrBaudrates = sizeof(baudrates) / sizeof(baudrates[0]);
 
 void AOGSerialClass::init()
 {

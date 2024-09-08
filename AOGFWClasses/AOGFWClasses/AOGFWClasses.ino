@@ -19,7 +19,6 @@
 #include "IMU\\BNO08x.h"
 #include "GPS\\GPS.h"
 #include "GPS\\UbloxF9P.h"
-#include "AOGSerial.h"
 
 
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype

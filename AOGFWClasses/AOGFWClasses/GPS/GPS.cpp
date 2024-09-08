@@ -5,12 +5,12 @@
 #include "GPS.h"
 #include "..\\AOGSerial.h"
 
-HardwareSerial* SerialGPS = &Serial7; //Main postion receiver (GGA) (Serial2 must be used here with T4.0 / Basic Panda boards - Should auto swap)
-HardwareSerial* SerialGPS2 = &Serial2; //Dual heading receiver 
+HardwareSerial* GPSClass::SerialGPS = &Serial7; //Main postion receiver (GGA) (Serial2 must be used here with T4.0 / Basic Panda boards - Should auto swap)
+HardwareSerial* GPSClass::SerialGPS2 = &Serial2; //Dual heading receiver 
 
 bool blink = false;
-bool passThroughGPS = false;
-bool passThroughGPS2 = false;
+bool GPSClass::passThroughGPS = false;
+bool GPSClass::passThroughGPS2 = false;
 bool GGA_Available = false;
 bool useDual = false;
 bool dualReadyGGA = false;
@@ -42,7 +42,7 @@ void GPSClass::initialize()
 	Logger.LogMessage("Looking for GPS...", LoggerClass::LogCategories::GPS);
 
 	// stall until GPS is receiving - NOTE, this is in LOOP in original, but surely no need to swap past init?
-	while (GGA_Available == false && !passThroughGPS && !passThroughGPS2)
+	while (GGA_Available == false && !GPSClass::passThroughGPS && !GPSClass::passThroughGPS2)
 	{
 		if (systick_millis_count - PortSwapTime >= 10000)
 		{
@@ -92,14 +92,14 @@ void GPSClass::parseRTK() {
 
 				if (AOGSerialClass::aogSerialCmdBuffer[AOGSerialClass::aogSerialCmdCounter + 1] == '1')
 				{
-					passThroughGPS = true;
-					passThroughGPS2 = false;
+					GPSClass::passThroughGPS = true;
+					GPSClass::passThroughGPS2 = false;
 					autoBaudSerial = SerialGPS;
 				}
 				else if (AOGSerialClass::aogSerialCmdBuffer[AOGSerialClass::aogSerialCmdCounter + 1] == '2')
 				{
-					passThroughGPS = false;
-					passThroughGPS2 = true;
+					GPSClass::passThroughGPS = false;
+					GPSClass::passThroughGPS2 = true;
 					autoBaudSerial = SerialGPS2;
 				}
 
@@ -252,8 +252,8 @@ void GPSClass::parseRTK() {
 			// END command. maybe think of a different abbreviation
 			else if (AOGSerialClass::aogSerialCmdBuffer[AOGSerialClass::aogSerialCmdCounter] == 'E' && AOGSerialClass::AOGSerialClass::aogSerialCmdBuffer[AOGSerialClass::aogSerialCmdCounter + 1] == 'D')
 			{
-				passThroughGPS = false;
-				passThroughGPS2 = false;
+				GPSClass::passThroughGPS = false;
+				GPSClass::passThroughGPS2 = false;
 				AOGSerialClass::aogSerialCmdCounter = 0;
 			}
 		}
@@ -262,11 +262,11 @@ void GPSClass::parseRTK() {
 			AOGSerialClass::aogSerialCmdCounter = 0;
 		}
 
-		if (passThroughGPS)
+		if (GPSClass::passThroughGPS)
 		{
 			SerialGPS->write(incoming_char);
 		}
-		else if (passThroughGPS2)
+		else if (GPSClass::passThroughGPS2)
 		{
 			SerialGPS2->write(incoming_char);
 		}
