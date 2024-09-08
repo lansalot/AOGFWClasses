@@ -21,7 +21,7 @@ void UbloxF9P::initialize() {
 	// and just stuff it with data from $GPS?
 
 	parser.setErrorHandler(errorHandler);
-	//parser.addHandler("G-GGA", GGA_Handler);
+	parser.addHandler("G-GGA", GGA_Handler);
 	parser.addHandler("G-VTG", VTG_Handler);
 	Logger.LogMessage("F9P initialized", moduleLogLevel);
 }
@@ -88,7 +88,7 @@ void UbloxF9P::GGA_Handler()
 
 	// time of last DGPS update
 	parser.getArg(12, GPSClass::ageDGPS);
-#ifndef CANCOMPILE
+//#ifndef CANCOMPILE
 	if (blink)
 	{
 		digitalWrite(LEDClass::GGAReceivedLED, HIGH);
@@ -125,7 +125,7 @@ void UbloxF9P::GGA_Handler()
 	}
 
 	GPSClass::gpsReadyTime = systick_millis_count;    //Used for GGA timeout (LED's ETC) 
-#endif
+//#endif
 }
 
 

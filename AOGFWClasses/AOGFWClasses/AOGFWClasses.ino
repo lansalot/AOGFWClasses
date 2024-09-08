@@ -61,29 +61,29 @@ void setup() {
 		//imu = new CMPS14;
 	}
 
-	gps  = new UbloxF9P;
+	//gps  = new UbloxF9P;
 	//gps->initialize();
 
-	SteerKeya.init(); // so that works OK...
+	//SteerKeya.init(); // so that works OK...
 	// here, we would be initialising CANBUS
 
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-
+	Logger.LogMessage("Looping...",LoggerClass::LogCategories::IMU);
 	// a CANBUS receive here perhaps to kick the loop off?
 
 	IMUClass::IMUData imuData = imu->getIMUData(imu->noInvertRoll, imu->useXAxis);
 	// just here for testing, not of interest really
-	Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
+	//Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
 	led.ledOn(led.GGAReceivedLED);
 	delay(500);
 	led.ledOff(led.GGAReceivedLED);
 	delay(500);
 
 	// incoming RTK
-	gps->parseRTK();
+	//gps->parseRTK();
 
 
 	// To work AOG-style, loop should

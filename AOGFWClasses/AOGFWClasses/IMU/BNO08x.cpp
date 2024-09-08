@@ -22,15 +22,21 @@
 	Please see LICENSE.md for further details.
 */
 
+#include "../Logger.h"
 #include "BNO08x.h"
 #define ImuWire Wire        //SCL=19:A5 SDA=18:A4
 #define REPORT_INTERVAL 20    //BNO report time, we want to keep reading it quick & offen. Its not timmed to anything just give constant data.
-IMUClass::IMUData imuData;
+//IMUClass::IMUData imuData;
+// create a new variable of type IMUClass::IMUData and initialise it
+
+
+IMUClass::IMUData imuData = { 0, 0, 0, 0 };
+
 
 #define RAD_TO_DEG_X_10 572.95779513082320876798154814105
 
 void BNO080::initialize() {
-
+	Logger.LogMessage("IMU initializing", moduleLogLevel);
 	const uint8_t bno08xAddresses[] = { 0x4A, 0x4B };
 	const int8_t nrBNO08xAdresses = sizeof(bno08xAddresses) / sizeof(bno08xAddresses[0]);
 	uint8_t bno08xAddress;
@@ -78,8 +84,12 @@ void BNO080::initialize() {
 }
 
 IMUClass::IMUData BNO080::getIMUData(rollState roll, imuAxisState imuAxis) {
-	if (dataAvailable() == true)
+	Logger.LogMessage("IMU::getIMUData", moduleLogLevel);
+	return { 1,2,3,4 };
+	if (BNO080::dataAvailable() == true)
 	{
+		Logger.LogMessage("IMU::getIMUData::dataAvailable", moduleLogLevel);
+
 		float dqx, dqy, dqz, dqw, dacr;
 		uint8_t dac;
 
@@ -131,7 +141,7 @@ IMUClass::IMUData BNO080::getIMUData(rollState roll, imuAxisState imuAxis) {
 			imuData.roll *= -1;
 		}
 	}
-	return imuData;
+	//return imuData;
 }
 
 // Below, this is all standard Sparkfun stuff

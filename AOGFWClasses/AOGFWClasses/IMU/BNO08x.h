@@ -138,9 +138,9 @@ protected:
 
 public:
 
-	void initialize();
 	boolean devicePresent = false;
-	IMUClass::IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
+	void initialize();
+	IMUData getIMUData(rollState roll, imuAxisState imuAxis) override;
 
 
 private:
