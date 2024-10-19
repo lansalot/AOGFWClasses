@@ -3,20 +3,18 @@
 #ifndef _STEER_h
 #define _STEER_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
+#include <arduino.h>
+#include "../Logger.h"
 
 class SteerClass
 {
  protected:
 
  public:
-	virtual void init() = 0;
+	 static float steerCurrent;
+	 virtual void init(LoggerClass::LogCategories moduleLogLevel) = 0;
+	 virtual void SteerPWM(int steerSpeed) = 0;
+	 virtual float getCurrent() = 0;
 };
 
-
 #endif
-

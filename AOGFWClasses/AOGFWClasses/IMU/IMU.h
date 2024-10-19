@@ -2,12 +2,6 @@
 #ifndef _IMU_h
 #define _IMU_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "arduino.h"
-#else
-#include "WProgram.h"
-#endif
-
 #include "..\\Logger.h"
 
 class IMUClass
@@ -17,24 +11,38 @@ protected:
 
 
 public:
+	// add an enum for rollState and imuAxisState
+	enum rollState
+	{
+		Inverted = 0,
+		Normal = 1
+	};
+	enum imuAxisState
+	{
+		XOrientation = 0,
+		YOrientation = 1
+	};
+
 	struct IMUData {
-		float roll = 0;
-		float pitch = 0;
 		float yaw = 0;
+		float pitch = 0;
+		float roll = 0;
+		float x_accel = 0;
+		float y_accel = 0;
+		float z_accel = 0;
 		double correctionHeading = 0;
 	};
+
 	IMUData imuData;
-	enum rollState {
-		noInvertRoll = 0,
-		invertRoll = 1
-	};
-	enum imuAxisState {
-		useYAxis = 0,
-		useXAxis = 1
-	};
 	boolean devicePresent;
-	virtual void initialize() = 0;
-	virtual IMUData getIMUData(rollState roll, imuAxisState imuAxis) = 0;
+	virtual bool initialize(rollState rollState, imuAxisState imuAxis) = 0;
+	virtual bool read() = 0;
+	virtual bool read(IMUData *imudata) = 0;
+
+
+	// why should this class perform the initialisation?  who cares?
+	//virtual void initialize() = 0;
+	//virtual IMUData getIMUData(rollState roll, imuAxisState imuAxis) = 0;
 };
 
 

@@ -2,12 +2,12 @@
 // 
 // 
 
+#include "../Logger.h"
 #include "Steer.h"
 
-void SteerClass::init()
+// default constructor, all classess will need this to set log level. sort it out
+void SteerClass::init(LoggerClass::LogCategories moduleLogLevel)
 {
-
-
 }
 
 

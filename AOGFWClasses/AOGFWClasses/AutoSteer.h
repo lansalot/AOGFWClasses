@@ -3,28 +3,10 @@
 #ifndef _AUTOSTEERPID_h
 #define _AUTOSTEERPID_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
+#include <Arduino.h>
 
 //How many degrees before decreasing Max PWM
 #define LOW_HIGH_DEGREES 3.0
-
-//steering variables
-float steerAngleActual = 0;
-float steerAngleSetPoint = 0; //the desired angle from AgOpen
-int16_t steeringPosition = 0; //from steering sensor
-float steerAngleError = 0; //setpoint - actual
-
-
-//pwm variables
-int16_t pwmDrive = 0, pwmDisplay = 0;
-float pValue = 0;
-float errorAbs = 0;
-float highLowPerDeg = 0;
-
 
 struct Storage {
 	uint8_t Kp = 40;              // proportional gain
@@ -34,7 +16,7 @@ struct Storage {
 	uint8_t highPWM = 60;         // max PWM value
 	float steerSensorCounts = 30;
 	float AckermanFix = 1;        // sent as percent
-};  Storage steerSettings;      // 11 bytes (AW: 14 surely?
+};
 
 //Variables for settings - 0 is false
 struct Setup {
@@ -51,7 +33,19 @@ struct Setup {
 	uint8_t PulseCountMax = 5;
 	uint8_t IsDanfoss = 0;
 	uint8_t IsUseY_Axis = 0;     //Set to 0 to use X Axis, 1 to use Y avis
-}; Setup steerConfig;
+};
 
+extern float steerAngleActual;
+extern float steerAngleSetPoint;
+extern int16_t steeringPosition;
+extern float steerAngleError;
+extern int16_t pwmDrive;
+extern int16_t pwmDisplay;
+extern float pValue;
+extern float errorAbs;
+extern float highLowPerDeg;
+
+extern Setup steerConfig;
+//extern Storage steerSettings;
 #endif
 

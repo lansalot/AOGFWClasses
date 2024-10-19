@@ -20,9 +20,12 @@ class SteerCytronClass : public SteerClass
 
  public:
 	void init();
+	void SteerPWM(int steerSpeed);
+	float getCurrent();
+
 };
 
-extern SteerCytronClass SteerCytron;
+//extern SteerCytronClass SteerCytron;
 
 
 #endif

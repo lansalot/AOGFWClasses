@@ -11,5 +11,5 @@ void SteerCANBUSClass::init()
 }
 
 
-SteerCANBUSClass SteerCANBUS;
+//SteerCANBUSClass SteerCANBUS;
 

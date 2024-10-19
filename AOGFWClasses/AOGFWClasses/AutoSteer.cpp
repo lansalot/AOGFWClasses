@@ -4,6 +4,22 @@
 
 #include "AutoSteer.h"
 
+//steering variables
+float steerAngleActual = 0;
+float steerAngleSetPoint = 0; //the desired angle from AgOpen
+int16_t steeringPosition = 0; //from steering sensor
+float steerAngleError = 0; //setpoint - actual
+
+
+//pwm variables
+int16_t pwmDrive = 0, pwmDisplay = 0;
+float pValue = 0;
+float errorAbs = 0;
+float highLowPerDeg = 0;
+
+Storage steerSettings;      // 11 bytes (AW: 14 surely?
+Setup steerConfig;
+
 // this will need to be particular to steering method
 // so PWM, CANBUS etc
 // so it will need to be moved from here to the appropriate concrete class
