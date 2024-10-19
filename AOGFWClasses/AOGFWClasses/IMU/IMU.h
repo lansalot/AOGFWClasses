@@ -4,13 +4,22 @@
 
 #include "..\\Logger.h"
 
+
 class IMUClass
 {
 protected:
 	LoggerClass::LogCategories moduleLogLevel = LoggerClass::LogCategories::IMU;
 
-
 public:
+	struct IMUData {
+		float yaw = 0;
+		float pitch = 0;
+		float roll = 0;
+		float x_accel = 0;
+		float y_accel = 0;
+		float z_accel = 0;
+		double correctionHeading = 0;
+	};
 	// add an enum for rollState and imuAxisState
 	enum rollState
 	{
@@ -23,21 +32,11 @@ public:
 		YOrientation = 1
 	};
 
-	struct IMUData {
-		float yaw = 0;
-		float pitch = 0;
-		float roll = 0;
-		float x_accel = 0;
-		float y_accel = 0;
-		float z_accel = 0;
-		double correctionHeading = 0;
-	};
 
 	IMUData imuData;
 	boolean devicePresent;
 	virtual bool initialize(rollState rollState, imuAxisState imuAxis) = 0;
 	virtual bool read() = 0;
-	virtual bool read(IMUData *imudata) = 0;
 
 
 	// why should this class perform the initialisation?  who cares?

@@ -14,19 +14,13 @@ bool BNO_rvc::initialize(IMUClass::rollState rollState, IMUClass::imuAxisState i
 	return true;
 }
 
+
+
 bool BNO_rvc::read() {
-	return rvcRead(&bnoData);
-}
-
-bool BNO_rvc::read(IMUClass::IMUData *imudata) {
-	return rvcRead(&bnoData);
-}
-
-bool BNO_rvc::rvcRead(IMUClass::IMUData *bnoData) {
-	if (!bnoData) {
-		//Serial.println("no data");
-		return false;
-	}
+	//if (!imuData) {
+	//	//Serial.println("no data");
+	//	return false;
+	//}
 
 	if (!bnoSerial->available()) return false;
 	//Serial.print(" 0x");
@@ -82,39 +76,38 @@ bool BNO_rvc::rvcRead(IMUClass::IMUData *bnoData) {
 		buffer_16[i] = (buffer[1 + (i * 2)]);
 		buffer_16[i] += (buffer[1 + (i * 2) + 1] << 8);
 	}
-	bnoData->yaw = (float)buffer_16[0] * DEGREE_SCALE;
-	bnoData->pitch = (float)buffer_16[1] * DEGREE_SCALE;
-	bnoData->roll = (float)buffer_16[2] * DEGREE_SCALE;
-	Serial.println(bnoData->yaw);
-	bnoData->x_accel = (float)buffer_16[3] * MILLI_G_TO_MS2;
-	bnoData->y_accel = (float)buffer_16[4] * MILLI_G_TO_MS2;
-	bnoData->z_accel = (float)buffer_16[5] * MILLI_G_TO_MS2;
+	imuData.yaw = (float)buffer_16[0] * DEGREE_SCALE;
+	imuData.pitch = (float)buffer_16[1] * DEGREE_SCALE;
+	imuData.roll = (float)buffer_16[2] * DEGREE_SCALE;
+	imuData.x_accel = (float)buffer_16[3] * MILLI_G_TO_MS2;
+	imuData.y_accel = (float)buffer_16[4] * MILLI_G_TO_MS2;
+	imuData.z_accel = (float)buffer_16[5] * MILLI_G_TO_MS2;
 
 	//Serial.print("updated!");
 	//if (angCounter < 20)
 	//{
-	//	bnoData->yawX100 = temp; //For angular velocity calc
-	//	bnoData->angVel += (temp - prevYaw);
+	//	imuData->yawX100 = temp; //For angular velocity calc
+	//	imuData->angVel += (temp - prevYaw);
 	//	angCounter++;
 	//	prevYaw = temp;
 	//}
 	//else
 	//{
 	//	angCounter = 0;
-	//	prevYaw = bnoData->angVel = 0;
+	//	prevYaw = imuData->angVel = 0;
 	//}
 
-	//bnoData->yawX10 = (int16_t)((float)temp * DEGREE_SCALE);
-	//if (bnoData->yawX10 < 0) bnoData->yawX10 += 3600;
+	//imuData->yawX10 = (int16_t)((float)temp * DEGREE_SCALE);
+	//if (imuData->yawX10 < 0) imuData->yawX10 += 3600;
 	//temp = buffer[3] + (buffer[4] << 8);
-	//bnoData->pitchX10 = (int16_t)((float)temp * DEGREE_SCALE);
+	//imuData->pitchX10 = (int16_t)((float)temp * DEGREE_SCALE);
 
 	//temp = buffer[5] + (buffer[6] << 8);
-	//bnoData->rollX10 = (int16_t)((float)temp * DEGREE_SCALE);
+	//imuData->rollX10 = (int16_t)((float)temp * DEGREE_SCALE);
 
-	//imuData.yaw = (float)bnoData->yawX10 / 10.0;
-	//imuData.pitch = (float)bnoData->pitchX10 / 10.0;
-	//imuData.roll = (float)bnoData->rollX10 / 10.0;
+	//imuData.yaw = (float)imuData->yawX10 / 10.0;
+	//imuData.pitch = (float)imuData->pitchX10 / 10.0;
+	//imuData.roll = (float)imuData->rollX10 / 10.0;
 
 	return true;
 }

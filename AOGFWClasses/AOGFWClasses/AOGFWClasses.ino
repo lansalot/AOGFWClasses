@@ -24,7 +24,8 @@
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
 
 
-IMUClass* imuInstance;
+IMUClass* imuInstance; // doesn't declare an instance of the class, just a pointer to it
+//BNO_rvc* imuInstance;
 GPSClass* gps;
 LEDClass led;
 
@@ -53,7 +54,7 @@ void setup() {
 
 	imuInstance = new BNO_rvc();
 	imuInstance->initialize(IMUClass::rollState::Normal, IMUClass::imuAxisState::XOrientation);
-	imuInstance->imuData.yaw = 99;
+
 	// normally, we'd check for CMPS14 first but let's look for BNO first instead as it's more popular
 	// instantiate an IMU object of subclass bno_rvc
 
@@ -87,7 +88,9 @@ void loop() {
 
 	imuInstance->read();
 	delay(10);
-	Serial.println("Main: " + String(imuInstance->imuData.yaw));
+	Serial.println("yaw: " + String(imuInstance->imuData.yaw) + "  pitch: " + String(imuInstance->imuData.pitch) + 
+		"  roll: " + String(imuInstance->imuData.roll) + "  xaccel: " + String(imuInstance->imuData.x_accel) + 
+		"  yaccel: " + String(imuInstance->imuData.y_accel) + "  zaccel: " + String(imuInstance->imuData.z_accel));
 	// just here for testing, not of interest really
 	//Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
 	//led.ledOn(led.GGAReceivedLED);

@@ -24,7 +24,7 @@ protected:
 
 public:
 
-		IMUClass::IMUData imuData;
+		//IMUClass::IMUData imuData;
 		//int16_t yawX10,     ///< Yaw in Degrees x 10
 		//	pitchX10,     ///< Pitch in Degrees x 10
 		//	rollX10,     ///< Roll in Degrees x 10
@@ -47,10 +47,7 @@ public:
 
 	bool initialize(rollState rollState, imuAxisState imuAxis) override;
 	
-	bool read() override;
-
-	bool read(IMUClass::IMUData *imudata) override; // this is a generic, that triggers the device-specific read
-	bool rvcRead(IMUClass::IMUData *bnoData);
+	bool read() override; // this is a generic, that triggers the device-specific read
 
 
 	//using IMUClass::imuData;
@@ -63,7 +60,7 @@ public:
 private:
 	uint32_t angCounter;
 	HardwareSerial *bnoSerial;
-	IMUData bnoData;
+	//IMUData bnoData;
 	rollState _rollState;
 	imuAxisState _imuAxisState;
 	int16_t prevYaw;
