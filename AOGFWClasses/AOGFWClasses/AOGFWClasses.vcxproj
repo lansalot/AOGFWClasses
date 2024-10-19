@@ -100,6 +100,7 @@
     <ClCompile Include="Steer\SteerCANBUS.cpp" />
     <ClCompile Include="Steer\SteerCytron.cpp" />
     <ClCompile Include="Steer\SteerKeya.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WAS\WAS.cpp" />
     <ClCompile Include="WAS\WASAnalog.cpp" />
     <ClCompile Include="WAS\WASCANBUS.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Steer\SteerCANBUS.h" />
     <ClInclude Include="Steer\SteerCytron.h" />
     <ClInclude Include="Steer\SteerKeya.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="WAS\WAS.h" />
     <ClInclude Include="WAS\WASAnalog.h" />
     <ClInclude Include="WAS\WASCANBUS.h" />

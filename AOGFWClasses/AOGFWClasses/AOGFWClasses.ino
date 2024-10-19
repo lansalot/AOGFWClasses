@@ -1,6 +1,7 @@
 
 // Fhe setup function runs once when you press reset or power the board
 
+#include "Timer.h"
 #include "AOGCANBUS.h"
 #include "AOGSerial.h"
 #include "AOGStatus.h"
@@ -19,7 +20,7 @@
 #include "IMU\\BNO_rvc.h"
 #include "GPS\\GPS.h"
 #include "GPS\\UbloxF9P.h"
-
+#include "Timer.h"
 
 extern "C" uint32_t set_arm_clock(uint32_t frequency); // required prototype
 
@@ -28,9 +29,10 @@ IMUClass* imuInstance; // doesn't declare an instance of the class, just a point
 //BNO_rvc* imuInstance;
 GPSClass* gps;
 LEDClass led;
+uint32_t lastmillis = millis();
+ElapsedTimer timer;
 
 void setup() {
-
 	led.init();
 	Serial.println("Initialising!");
 	delay(10);
@@ -87,13 +89,15 @@ void loop() {
 	//IMUClass::IMUData imuData = 
 
 	imuInstance->read();
-	delay(10);
-	Serial.println("yaw: " + String(imuInstance->imuData.yaw) + "  pitch: " + String(imuInstance->imuData.pitch) + 
+	if (timer.getCheckpoint() > 250) {
+		led.ledOn(led.GGAReceivedLED);
+		Logger.LogMessage("yaw: " + String(imuInstance->imuData.yaw) + "  pitch : " + String(imuInstance->imuData.pitch) + 
 		"  roll: " + String(imuInstance->imuData.roll) + "  xaccel: " + String(imuInstance->imuData.x_accel) + 
-		"  yaccel: " + String(imuInstance->imuData.y_accel) + "  zaccel: " + String(imuInstance->imuData.z_accel));
+		"  yaccel: " + String(imuInstance->imuData.y_accel) + "  zaccel: " + String(imuInstance->imuData.z_accel),LoggerClass::IMU);
+		timer.checkpoint();
+	}
+
 	// just here for testing, not of interest really
-	//Logger.LogMessage("Pitch: " + String(imuData.pitch),LoggerClass::LogCategories::IMU);
-	//led.ledOn(led.GGAReceivedLED);
 	//delay(500);
 	//led.ledOff(led.GGAReceivedLED);
 	//delay(500);
